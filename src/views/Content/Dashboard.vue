@@ -9,12 +9,12 @@
                             </p>
                             <hr>
                             <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-outline-secondary">Auto Bid Entry</button>
-                                <button type="button" class="btn btn-outline-secondary">New Bid Entry</button>
-                                <button type="button" class="btn btn-outline-secondary">New Bulk Bid Entry</button>
-                                <button type="button" class="btn btn-outline-secondary">Auto Trade</button>
-                                <button type="button" class="btn btn-outline-secondary">e-Certificate</button>
-                                <button type="button" class="btn btn-outline-secondary">Settlement</button>
+                                <router-link to="/underdev" class="btn btn-outline-secondary">Auto Bid Entry</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary">New Bid Entry</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary">New Bulk Bid Entry</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary">Auto Trade</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary">e-Certificate</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary">Settlement</router-link>
                             </div>
                         </div>
                     </div>
@@ -57,9 +57,12 @@
         </div>
     </div>
 </div>
+<Action />
 </template>
 <script>
+import Action from '../Content/Action.vue'
 export default {
+    components:{Action},
     data() {
         return {
             marketOfferLists: [

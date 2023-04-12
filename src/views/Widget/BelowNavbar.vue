@@ -9,33 +9,33 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+                        <router-link class="nav-link active" to="/dashboard">Dashboard</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Market Order</a>
+                        <router-link class="nav-link" to="/underdev">Market Order</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Matching</a>
+                        <router-link class="nav-link" to="/underdev">Matching</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Settlement</a>
+                        <router-link class="nav-link" to="/underdev">Settlement</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Report/Delivery</a>
+                        <router-link class="nav-link" to="/underdev">Report/Delivery</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Market Information</a>
+                        <router-link class="nav-link" to="/underdev">Market Information</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Market Management</a>
+                        <router-link class="nav-link" to="/underdev">Market Mangement</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">System Setting</a>
+                        <router-link class="nav-link" to="/underdev">System Setting</router-link>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <button class="btn btn-success" type="submit">Sign In</button>
-                </form>
+                <div class="d-flex">
+                    <router-link to="/signin" class="btn btn-success">Sign In</router-link>
+                </div>
             </div>
         </div>
     </nav>
