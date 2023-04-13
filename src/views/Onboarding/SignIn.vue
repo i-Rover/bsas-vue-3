@@ -96,7 +96,10 @@ methods: {
             console.log(output);
             this.seen = false;
             this.hide = true;
-            this.$store.commit('setAccessToken',output);
+            console.warn(output.data);
+            localStorage.setItem('userName',output.data.userName);
+            localStorage.setItem('accessToken',JSON.stringify(output.data));
+            this.$store.commit('setAccessToken',output.data);
             this.$router.push({path:'/dashboard'});
         })
         .catch((e)=>{console.log(e);this.seen = false;this.hide=true;});

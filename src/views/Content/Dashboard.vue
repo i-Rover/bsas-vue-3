@@ -5,19 +5,19 @@
             <div class="d-flex justify-content-center mb-3 mt-3">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h4 v-if="this.$store.state.accessToken">
-                                Hello! {{this.$store.state.accessToken.data.userName}}
+                            <h4 v-if="getCurrentLogInUser">
+                                Hello! {{ getCurrentLogInUser }}
                             </h4>
                             <p class="card-text">We'll help you trade smarter with real-time data and insight. Let's start
                             </p>
                             <hr>
                             <div class="btn-group-vertical">
-                                <router-link to="/underdev" class="btn btn-outline-secondary">Auto Bid Entry</router-link>
-                                <router-link to="/underdev" class="btn btn-outline-secondary">New Bid Entry</router-link>
-                                <router-link to="/underdev" class="btn btn-outline-secondary">New Bulk Bid Entry</router-link>
-                                <router-link to="/underdev" class="btn btn-outline-secondary">Auto Trade</router-link>
-                                <router-link to="/underdev" class="btn btn-outline-secondary">e-Certificate</router-link>
-                                <router-link to="/underdev" class="btn btn-outline-secondary">Settlement</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary" style="text-align:left;">Auto Bid Entry</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary" style="text-align:left;">New Bid Entry</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary" style="text-align:left;">New Bulk Bid Entry</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary" style="text-align:left;">Auto Trade</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary" style="text-align:left;">e-Certificate</router-link>
+                                <router-link to="/underdev" class="btn btn-outline-secondary" style="text-align:left;">Settlement</router-link>
                             </div>
                         </div>
                     </div>
@@ -77,5 +77,10 @@ export default {
             ],
         }
     },
+    computed:{
+        getCurrentLogInUser(){
+            return localStorage.getItem('userName')!=null?localStorage.getItem('userName'):null;
+        }
+    }
 }
 </script>
