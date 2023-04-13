@@ -5,6 +5,9 @@
             <div class="d-flex justify-content-center mb-3 mt-3">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
+                            <h4 v-if="this.$store.state.accessToken">
+                                Hello! {{this.$store.state.accessToken.data.userName}}
+                            </h4>
                             <p class="card-text">We'll help you trade smarter with real-time data and insight. Let's start
                             </p>
                             <hr>
@@ -73,6 +76,6 @@ export default {
                 { ProductCode: "RBDPOL-MSIA-09", ProductName: "RBD Palm Oil", UnitValue: "MYR", TotalValue: "80,006,512.00", TotalVolume: "64,0000.00" },
             ],
         }
-    }
+    },
 }
 </script>

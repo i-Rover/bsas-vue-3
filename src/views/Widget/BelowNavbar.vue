@@ -34,9 +34,31 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <router-link to="/signin" class="btn btn-success">Sign In</router-link>
+                    <button class="btn btn-outline-danger" v-if="this.$store.state.accessToken" @click="signOut">Sign Out</button>
+                    <router-link to="/signin" class="btn btn-success" v-else>Sign In</router-link>
                 </div>
             </div>
         </div>
     </nav>
 </template>
+<script>
+import axios from 'axios';
+export default{
+    data(){
+        return{}
+    },
+    methods:{
+        async signOut(){
+            const url = "http://localhost:5000/api/users/sign-out";
+            console.log(this.$store.state.accessToken.data);
+            var myAccessToken = this.$store.state.accessToken.data;
+            await axios.post(url,myAccessToken).then((output)=>{
+                this.$store.commit('clearAccessToken');
+                console.log(output);
+                // this.$router.push({path:'/dashboard'});
+                location.reload();
+            }).catch((e)=>{console.log(e)});
+        },
+    }
+}
+</script>

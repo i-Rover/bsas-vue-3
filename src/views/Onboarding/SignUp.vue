@@ -1,5 +1,10 @@
 <template>
     <div class="container-fluid" style="background-color: #f2f2f2;height:100vh;">
+        <div class="container mt-2 d-flex justify-content-center" v-if="show">
+            <div class="alert alert-primary mb-2" role="alert" style="width:500px;">
+                <i class="bi bi-check-circle-fill"></i> Your New Account Has Been Created. Please Log In Now.
+            </div>
+        </div>
         <div class="d-flex justify-content-center">
             <div class="card mt-3">
                 <div class="card-body" style="width:500px;">
@@ -15,17 +20,21 @@
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control" id="email" placeholder="Enter Your User Email..."
                                 v-model="state.email">
-                            <span style="color:red;" v-if="this.v$.email.$error"> *{{ this.v$.email.$errors[0].$message }} </span>
+                            <span style="color:red;" v-if="this.v$.email.$error">*{{ this.v$.email.$errors[0].$message }} </span>
                         </div>
                         <div class="mb-3">  
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password"
                                 placeholder="Enter Your User Password..." v-model="state.password">
-                            <span style="color:red;" v-if="this.v$.password.$error">* {{ this.v$.password.$errors[0].$message }} </span>
+                            <span style="color:red;" v-if="this.v$.password.$error">*{{ this.v$.password.$errors[0].$message }} </span>
                         </div>
                         <hr>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="button" @click="submitForm">Sign Up</button>
+                            <button class="btn btn-primary" type="button" @click="submitForm" v-if="hide">Sign Up</button>
+                            <button class="btn btn-primary" type="button" disabled v-if="seen">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
                         </div>
                 </div>
             </div>
@@ -36,6 +45,7 @@
 import useValidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
+import axios from 'axios';
 export default {
 setup() {
     const state = reactive({
@@ -59,6 +69,9 @@ data() {
         username: '',
         password: '',
         email: '',
+        seen:false,
+        hide:true,
+        show:false,
     }
 },
 methods: {
@@ -66,14 +79,29 @@ methods: {
         console.log(this.v$);
         this.v$.$validate() // checks all inputs
         if (!this.v$.$error) {
-            // if ANY fail validation
-            alert('Form successfully submitted.')
-        } else {
-            console.warn(this.v$.username.$error);
-            console.warn(this.v$.username.$errors[0].$message);
-            alert('Form failed validation')
+            this.registerNow();
         }
-    }
+    },
+    async registerNow(){
+        this.hide = false;
+        this.seen = true;
+        const url = "http://localhost:5000/api/users/sign-up";
+        let data = {
+            "email"     : this.state.email,
+            "username"  : this.state.username,
+            "password"  : this.state.password,
+        }
+        console.log(data);
+        await axios.post(url,data).then((output)=>{
+            this.hide = true;
+            this.seen = false;
+            this.show = true;
+        }).catch(e=>{
+            console.log(e);
+            this.hide = true;
+            this.seen = false;
+        });
+    },
 },
 validations() {
     return {

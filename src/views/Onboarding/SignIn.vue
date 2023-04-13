@@ -28,7 +28,11 @@
                     </div>
                     <hr>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" @click="submitForm">Sign In</button>
+                        <button class="btn btn-primary" type="button" @click="submitForm" v-if="hide">Sign In</button>
+                        <button class="btn btn-primary" type="button" disabled v-if="seen">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="visually-hidden"> Loading...</span>
+                        </button>
                         <router-link to="/signup" class="btn btn-outline-primary">Sign Up</router-link>
                     </div>
                 </div>
@@ -39,6 +43,7 @@
 <script>
 import useValidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
+import axios from 'axios'
 import { reactive, computed } from 'vue'
 export default {
 setup() {
@@ -63,6 +68,8 @@ data() {
         username: '',
         email: '',
         password: '',
+        seen:false,
+        hide:true,
     }
 },
 methods: {
@@ -70,11 +77,30 @@ methods: {
         console.log(this.v$);
         this.v$.$validate()
         if (!this.v$.$error) {
-            alert('Form Successfully submitted');
-        } else {
-            alert('Form failed validation');
+            this.signInNow();
         }
-    }
+    },
+    async signInNow(){
+        this.hide = false;
+        this.seen = true;
+        const url = "http://localhost:5000/api/users/sign-in";
+        let data = {
+            "email"         : this.state.email,
+            "username"      : this.state.username,
+            "password"      : this.state.password,
+            "newPassword"   : this.state.password            
+        }
+        console.log(data);
+        await axios.post(url, data)
+        .then((output)=>{
+            console.log(output);
+            this.seen = false;
+            this.hide = true;
+            this.$store.commit('setAccessToken',output);
+            this.$router.push({path:'/dashboard'});
+        })
+        .catch((e)=>{console.log(e);this.seen = false;this.hide=true;});
+    },
 },
 validations() {
     return {
