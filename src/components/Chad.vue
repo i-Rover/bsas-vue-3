@@ -189,7 +189,7 @@
   padding: 8px;
   /* margin-bottom: 12px; */
   background-color: #cfe2ff;
-  width:50%;
+  width:50%;                                        
   margin-left:2.5%;
   border-radius: 8px;
   
@@ -353,7 +353,7 @@ export default {
       console.log("REQuest : ");
       console.log(req)
       axios
-        .post("http://localhost:8000/askQuestion", req)
+        .post("http://a19b558aa03d34eedb852f1cb1afcc78-1787080680.ap-southeast-1.elb.amazonaws.com:8000/askQuestion", req)
         .then((response) => {
           // const pathString = response.data.document_list
           // const paths = pathString.split(", "); 
